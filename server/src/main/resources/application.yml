@@ -1,0 +1,26 @@
+tax:
+  tax-tables:
+    2021:
+      taxable-income-tax-rates:
+        - lowerTaxBracket: 1
+          percentage: 18
+        - lowerTaxBracket: 205_901
+          amount: 37_062
+          percentage: 26
+        - lowerTaxBracket: 321_601
+          amount: 67_144
+          percentage: 31
+        - lowerTaxBracket: 445_101
+          amount: 105_429
+          percentage: 36
+        - lowerTaxBracket: 584_201
+          amount: 155_505
+          percentage: 39
+        - lowerTaxBracket: 744_801
+          amount: 218_139
+          percentage: 41
+        - lowerTaxBracket: 1_577_301
+          amount: 559_464
+          percentage: 45
+
+
