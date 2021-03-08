@@ -27,7 +27,9 @@ public class TaxConfig {
         @NotEmpty
         private List<TaxRate> taxableIncomeTaxRates = new ArrayList<>();
         @NotNull
-        private TaxRebate taxRebate;
+        private TaxRebate taxRebates;
+        @NotNull
+        private TaxThreshold taxThresholds;
 
         @Data
         static class TaxRate {
@@ -39,13 +41,18 @@ public class TaxConfig {
             private int amount;
         }
         @Data
-        static class TaxRebate{
+        static class TaxPayerAgeCategory {
             @Min(1)
             private int primary;
             @Min(1)
             private int secondary;
             @Min(1)
             private int tertiary;
+        }
+
+        static class TaxThreshold extends TaxPayerAgeCategory {
+        }
+        static class TaxRebate extends TaxPayerAgeCategory {
         }
     }
 }

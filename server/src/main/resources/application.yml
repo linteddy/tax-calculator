@@ -22,9 +22,13 @@ tax:
         - lowerTaxBracket: 1_577_301
           amount: 559_464
           percentage: 45
-      tax-rebate:
+      tax-rebates:
         primary: 14_958
         secondary: 8_199
         tertiary: 2_736
+      tax-thresholds:
+        primary: 83_100
+        secondary: 128_650
+        tertiary: 143_850
 
 
