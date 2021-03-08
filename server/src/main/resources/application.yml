@@ -30,5 +30,11 @@ tax:
         primary: 83_100
         secondary: 128_650
         tertiary: 143_850
+      medical-aid-tax-credits:
+        main: 319
+        first-dependant: 319
+        additional-dependant: 215
+
+
 
 

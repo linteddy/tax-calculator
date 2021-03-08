@@ -30,6 +30,8 @@ public class TaxConfig {
         private TaxRebate taxRebates;
         @NotNull
         private TaxThreshold taxThresholds;
+        @NotNull
+        private MedicalAidTaxCredits medicalAidTaxCredits;
 
         @Data
         static class TaxRate {
@@ -53,6 +55,16 @@ public class TaxConfig {
         static class TaxThreshold extends TaxPayerAgeCategory {
         }
         static class TaxRebate extends TaxPayerAgeCategory {
+        }
+
+        @Data
+        static class MedicalAidTaxCredits {
+            @Min(1)
+            private int main;
+            @Min(1)
+            private int firstDependant;
+            @Min(1)
+            private int additionalDependant;
         }
     }
 }
