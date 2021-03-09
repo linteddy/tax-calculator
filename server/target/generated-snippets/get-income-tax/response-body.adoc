@@ -1,0 +1,10 @@
+[source,options="nowrap"]
+----
+{
+  "monthlyPAYEBeforeTaxCredit" : 4657.58,
+  "annuallyPAYEBeforeTaxCredit" : 55890.96,
+  "taxCredits" : 0,
+  "paye" : 4657.58,
+  "netCash" : 25342.42
+}
+----

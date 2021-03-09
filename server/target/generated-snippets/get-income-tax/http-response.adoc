@@ -1,0 +1,14 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 152
+
+{
+  "monthlyPAYEBeforeTaxCredit" : 4657.58,
+  "annuallyPAYEBeforeTaxCredit" : 55890.96,
+  "taxCredits" : 0,
+  "paye" : 4657.58,
+  "netCash" : 25342.42
+}
+----

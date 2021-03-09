@@ -1,0 +1,24 @@
+|===
+|Path|Type|Description
+
+|`+monthlyPAYEBeforeTaxCredit+`
+|`+Number+`
+|Calculated monthly PAYE before Tax Credits
+
+|`+annuallyPAYEBeforeTaxCredit+`
+|`+Number+`
+|Calculated annually PAYE before Tax Credits
+
+|`+taxCredits+`
+|`+Number+`
+|Medical Aid Tax Credits
+
+|`+paye+`
+|`+Number+`
+|Pay as you earn due after Tax credits
+
+|`+netCash+`
+|`+Number+`
+|Net cash pay after PAYE due
+
+|===

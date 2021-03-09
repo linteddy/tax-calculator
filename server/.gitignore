@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 !**/*.adoc
+!target/generated-snippets/
 
 ### STS ###
 .apt_generated
