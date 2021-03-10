@@ -23,7 +23,7 @@ class MedicalAidTaxCreditsTest {
     @DisplayName("calculate tax credits with 0 medical aid members")
     void calculateTaxCreditsWithNoMembers() {
         final BigDecimal taxCredits = medicalAidTaxCredits.calculateTaxCredits(0);
-        assertThat(taxCredits.toString()).isEqualTo("0");
+        assertThat(taxCredits).hasToString("0");
     }
 
 
@@ -31,20 +31,20 @@ class MedicalAidTaxCreditsTest {
     @DisplayName("calculate tax credits with 1 medical aid members")
     void calculateTaxCreditsWithOneMember() {
         final BigDecimal taxCredits = medicalAidTaxCredits.calculateTaxCredits(1);
-        assertThat(taxCredits.toString()).isEqualTo("319");
+        assertThat(taxCredits).hasToString("319");
     }
 
     @Test
     @DisplayName("calculate tax credits with 2 medical aid members")
     void calculateTaxCreditsWithTwoMembers() {
         final BigDecimal taxCredits = medicalAidTaxCredits.calculateTaxCredits(2);
-        assertThat(taxCredits.toString()).isEqualTo("638");
+        assertThat(taxCredits).hasToString("638");
     }
 
     @Test
     @DisplayName("calculate tax credits with 5 medical aid members")
     void calculateTaxCreditsWithFiveMembers() {
         final BigDecimal taxCredits = medicalAidTaxCredits.calculateTaxCredits(5);
-        assertThat(taxCredits.toString()).isEqualTo("1283");
+        assertThat(taxCredits).hasToString("1283");
     }
 }
