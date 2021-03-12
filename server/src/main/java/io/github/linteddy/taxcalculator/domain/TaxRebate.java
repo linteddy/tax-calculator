@@ -2,16 +2,16 @@ package io.github.linteddy.taxcalculator.domain;
 
 import java.math.BigDecimal;
 
-import static io.github.linteddy.taxcalculator.domain.TaxPayerAgeCategory.AgeCategory.PRIMARY;
-import static io.github.linteddy.taxcalculator.domain.TaxPayerAgeCategory.AgeCategory.SECONDARY;
+import static io.github.linteddy.taxcalculator.domain.TaxForAgeGroup.TaxAgeGroup.PRIMARY;
+import static io.github.linteddy.taxcalculator.domain.TaxForAgeGroup.TaxAgeGroup.SECONDARY;
 
-class TaxRebate extends TaxPayerAgeCategory {
+class TaxRebate extends TaxForAgeGroup {
 
     BigDecimal calculateTaxRebates(final int age){
-        final AgeCategory ageCategory = determineAgeCategory(age);
-        if(PRIMARY == ageCategory){
+        final TaxAgeGroup taxAgeGroup = determineTaxAgeGroup(age);
+        if(PRIMARY == taxAgeGroup){
             return getPrimary();
-        }else if (SECONDARY == ageCategory){
+        }else if (SECONDARY == taxAgeGroup){
             return getPrimary().add(getSecondary());
         }else {
             return getPrimary().add(getSecondary()).add(getTertiary());

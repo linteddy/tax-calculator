@@ -6,7 +6,7 @@ import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
 @Data
-abstract class TaxPayerAgeCategory {
+abstract class TaxForAgeGroup {
     @Min(1)
     private BigDecimal primary;
     @Min(1)
@@ -14,17 +14,17 @@ abstract class TaxPayerAgeCategory {
     @Min(1)
     private BigDecimal tertiary;
 
-    enum AgeCategory{
+    enum TaxAgeGroup {
         PRIMARY,SECONDARY,TERTIARY
     }
 
-    AgeCategory determineAgeCategory(int age){
+    TaxAgeGroup determineTaxAgeGroup(int age){
         if(age < 65 ){
-            return AgeCategory.PRIMARY;
+            return TaxAgeGroup.PRIMARY;
         }else if(age >= 75){
-            return AgeCategory.TERTIARY;
+            return TaxAgeGroup.TERTIARY;
         }else {
-            return AgeCategory.SECONDARY;
+            return TaxAgeGroup.SECONDARY;
         }
     }
 }
