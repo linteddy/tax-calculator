@@ -21,4 +21,12 @@ public class DomainTestUtil {
         taxBrackets.add(new TaxBracket(BigDecimal.valueOf(1577301), null, 45, BigDecimal.valueOf(559464)));
         return taxBrackets;
     }
+
+    public static TaxRebate createTaxRebate() {
+        var taxRebate = new TaxRebate();
+        taxRebate.setPrimary(BigDecimal.valueOf(14_958));
+        taxRebate.setSecondary(BigDecimal.valueOf(8_199));
+        taxRebate.setTertiary(BigDecimal.valueOf(2_736));
+        return taxRebate;
+    }
 }
