@@ -1,18 +1,26 @@
 package io.github.linteddy.taxcalculator.domain;
 
+import io.github.linteddy.taxcalculator.exception.TaxTableException;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TaxTable {
     @NotEmpty
-    private List<TaxRate> taxableIncomeTaxRates = new ArrayList<>();
+    private Set<TaxBracket> taxBrackets = new HashSet<>();
     @NotNull
     private TaxRebate taxRebates;
     @NotNull
@@ -20,14 +28,24 @@ public class TaxTable {
     @NotNull
     private MedicalAidTaxCredits medicalAidTaxCredits;
 
-    @Data
-    static class TaxRate {
-        @Min(1)
-        private int lowerTaxBracket;
-        @Min(1)
-        @Max(100)
-        private double percentage;
-        private int amount;
+    public BigDecimal calculateIncomeTax(final int age, BigDecimal totalTaxableIncome, final int medicalAidMembers) {
+        if (isIncomeLessThanTaxThresholds(totalTaxableIncome, age)) {
+            return BigDecimal.ZERO;
+        }
+        final Optional<TaxBracket> optionalTaxBracket = taxBrackets.stream().filter(bracket -> bracket.isInTaxBracket(totalTaxableIncome)).findAny();
+        if (optionalTaxBracket.isPresent()) {
+            final TaxBracket taxBracket = optionalTaxBracket.get();
+            BigDecimal tax = totalTaxableIncome.subtract(taxBracket.getMin()).add(BigDecimal.ONE);
+            tax = tax.multiply(BigDecimal.valueOf(taxBracket.getPercentage() / 100));
+            tax = tax.add(taxBracket.getAmount());
+            tax = tax.subtract(taxRebates.calculateTaxRebates(age));
+            return tax;
+        }
+        throw new TaxTableException("Error finding tax bracket for total taxable amount : "+totalTaxableIncome.toString());
+    }
+
+    private boolean isIncomeLessThanTaxThresholds(final BigDecimal totalTaxableIncome, final int age) {
+        return totalTaxableIncome.compareTo(taxThresholds.getTaxThreshold(age)) < 1;
     }
 
 }

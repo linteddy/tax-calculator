@@ -17,9 +17,9 @@ class TaxBracketTest {
     @Test()
     @DisplayName("TaxBracket meets the minimum requirements for HashSet")
     void testEquality() {
-        assertThat(taxBrackets).hasSize(3);
+        assertThat(taxBrackets).hasSize(4);
         taxBrackets.add(new TaxBracket(BigDecimal.valueOf(1577301), null, 45, BigDecimal.valueOf(559464)));
-        assertThat(taxBrackets).hasSize(3);
+        assertThat(taxBrackets).hasSize(4);
     }
 
     @Test
