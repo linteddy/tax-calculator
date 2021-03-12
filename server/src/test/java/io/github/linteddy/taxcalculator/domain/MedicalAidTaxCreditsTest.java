@@ -1,6 +1,5 @@
 package io.github.linteddy.taxcalculator.domain;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,15 +9,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MedicalAidTaxCreditsTest {
 
-    private MedicalAidTaxCredits medicalAidTaxCredits;
+    private final MedicalAidTaxCredits medicalAidTaxCredits = DomainTestUtil.createMedicalAidTaxCredits();
 
-    @BeforeEach
-    void setUp(){
-        medicalAidTaxCredits = new MedicalAidTaxCredits();
-        medicalAidTaxCredits.setMain(BigDecimal.valueOf(319));
-        medicalAidTaxCredits.setFirstDependant(BigDecimal.valueOf(319));
-        medicalAidTaxCredits.setAdditionalDependant(BigDecimal.valueOf(215));
-    }
     @Test
     @DisplayName("calculate tax credits with 0 medical aid members")
     void calculateTaxCreditsWithNoMembers() {
