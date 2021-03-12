@@ -29,4 +29,12 @@ public class DomainTestUtil {
         taxRebate.setTertiary(BigDecimal.valueOf(2_736));
         return taxRebate;
     }
+
+    public static TaxThreshold createTaxThreshold() {
+        var taxThreshold = new TaxThreshold();
+        taxThreshold.setPrimary(BigDecimal.valueOf(83_100));
+        taxThreshold.setSecondary(BigDecimal.valueOf(128_650));
+        taxThreshold.setTertiary(BigDecimal.valueOf(143_850));
+        return taxThreshold;
+    }
 }

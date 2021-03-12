@@ -9,15 +9,7 @@ import java.math.BigDecimal;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class TaxThresholdTest {
-    private static TaxThreshold taxThreshold;
-
-    @BeforeAll
-    static void setUp(){
-        taxThreshold = new TaxThreshold();
-        taxThreshold.setPrimary(BigDecimal.valueOf(83_100));
-        taxThreshold.setSecondary(BigDecimal.valueOf(128_650));
-        taxThreshold.setTertiary(BigDecimal.valueOf(143_850));
-    }
+    private final TaxThreshold taxThreshold = DomainTestUtil.createTaxThreshold();
 
     @Test
     @DisplayName("calculate tax rebates for primary tax payer")
