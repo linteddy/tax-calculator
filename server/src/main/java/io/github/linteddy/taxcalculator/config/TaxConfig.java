@@ -17,6 +17,6 @@ import java.util.Map;
 @Validated
 public class TaxConfig {
     @NotEmpty
-    private Map<@NotNull Integer, TaxTable> taxTables = new HashMap<>();
+    private Map<@NotNull Integer, TaxTable> taxableIncomeTable = new HashMap<>();
 
 }

@@ -21,6 +21,7 @@ class TaxBracket {
     @Min(1)
     @Max(100)
     private double percentage;
+    @NotNull
     private BigDecimal amount;
 
     boolean isInTaxBracket(final BigDecimal totalTaxableIncome) {
