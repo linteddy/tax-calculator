@@ -5,11 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -18,6 +18,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Validated
 public class TaxTable {
     @NotEmpty
     private Set<TaxBracket> taxBrackets = new HashSet<>();
@@ -28,20 +29,22 @@ public class TaxTable {
     @NotNull
     private MedicalAidTaxCredits medicalAidTaxCredits;
 
-    public BigDecimal calculateIncomeTax(final int age, BigDecimal totalTaxableIncome, final int medicalAidMembers) {
-        if (isIncomeLessThanTaxThresholds(totalTaxableIncome, age)) {
+    public BigDecimal calculateAnnualIncomeTax(final int age, BigDecimal totalAnnualTaxableIncome, final int medicalAidMembers) {
+        if (isIncomeLessThanTaxThresholds(totalAnnualTaxableIncome, age)) {
             return BigDecimal.ZERO;
         }
-        final Optional<TaxBracket> optionalTaxBracket = taxBrackets.stream().filter(bracket -> bracket.isInTaxBracket(totalTaxableIncome)).findAny();
+        final Optional<TaxBracket> optionalTaxBracket = taxBrackets.stream().filter(bracket -> bracket.isInTaxBracket(totalAnnualTaxableIncome)).findAny();
         if (optionalTaxBracket.isPresent()) {
             final TaxBracket taxBracket = optionalTaxBracket.get();
-            BigDecimal tax = totalTaxableIncome.subtract(taxBracket.getMin()).add(BigDecimal.ONE);
+            BigDecimal tax = totalAnnualTaxableIncome.subtract(taxBracket.getMin()).add(BigDecimal.ONE);
             tax = tax.multiply(BigDecimal.valueOf(taxBracket.getPercentage() / 100));
             tax = tax.add(taxBracket.getAmount());
             tax = tax.subtract(taxRebates.calculateTaxRebates(age));
-            return tax;
+            final BigDecimal annualTaxCredits = medicalAidTaxCredits.calculateTaxCredits(medicalAidMembers).multiply(BigDecimal.valueOf(12));
+            tax = tax.subtract(annualTaxCredits);
+            return tax.compareTo(BigDecimal.ZERO) > 0 ? tax : BigDecimal.ZERO;
         }
-        throw new TaxTableException("Error finding tax bracket for total taxable amount : "+totalTaxableIncome.toString());
+        throw new TaxTableException("Error finding tax bracket for total taxable amount : "+totalAnnualTaxableIncome.toString());
     }
 
     private boolean isIncomeLessThanTaxThresholds(final BigDecimal totalTaxableIncome, final int age) {
