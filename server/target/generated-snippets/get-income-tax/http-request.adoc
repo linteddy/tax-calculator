@@ -1,7 +1,0 @@
-[source,http,options="nowrap"]
-----
-GET /api/tax/income-tax?year=2021&age=70&income=30000&period=MONTHLY&medicalAidMembers=0 HTTP/1.1
-Accept: application/json
-Host: localhost:8080
-
-----

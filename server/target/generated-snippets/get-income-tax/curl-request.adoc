@@ -1,5 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/api/tax/income-tax?year=2021&age=70&income=30000&period=MONTHLY&medicalAidMembers=0' -i -X GET \
-    -H 'Accept: application/json'
-----
