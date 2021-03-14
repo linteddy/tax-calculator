@@ -1,5 +1,46 @@
 tax:
   taxable-income-table:
+    2020:
+      tax-brackets:
+        - min: 1
+          max: 195_850
+          amount: 0
+          percentage: 18
+        - min: 195_851
+          max: 305_850
+          amount: 35_253
+          percentage: 26
+        - min: 305_851
+          max: 423_300
+          amount: 63_853
+          percentage: 31
+        - min: 423_301
+          max: 555_600
+          amount: 100_263
+          percentage: 36
+        - min: 555_601
+          max: 708_310
+          amount: 147_891
+          percentage: 39
+        - min: 708_311
+          max: 1_500_000
+          amount: 207_448
+          percentage: 41
+        - min: 1_500_001
+          amount: 532_041
+          percentage: 45
+      tax-rebates:
+        primary: 14_220
+        secondary: 7_794
+        tertiary: 2_601
+      tax-thresholds:
+        primary: 79_000
+        secondary: 122_300
+        tertiary: 136_750
+      medical-aid-tax-credits:
+        main: 310
+        first-dependant: 310
+        additional-dependant: 209
     2021:
       tax-brackets:
         - min: 1
@@ -41,7 +82,6 @@ tax:
         main: 319
         first-dependant: 319
         additional-dependant: 215
-
 
 
 
