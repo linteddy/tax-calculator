@@ -1,10 +1,9 @@
 [source,options="nowrap"]
 ----
 {
-  "monthlyPAYEBeforeTaxCredit" : 4657.58,
-  "annuallyPAYEBeforeTaxCredit" : 55890.96,
+  "payAsYouEarnBeforeTaxCredit" : 4657.58,
   "taxCredits" : 0,
-  "paye" : 4657.58,
+  "payAsYouEarnAfterTaxCredit" : 4657.58,
   "netCash" : 25342.42
 }
 ----

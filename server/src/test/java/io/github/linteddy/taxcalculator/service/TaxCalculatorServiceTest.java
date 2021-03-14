@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @Import(TaxCalculatorService.class)
-class IncomeTaxServiceTest {
+class TaxCalculatorServiceTest {
     @MockBean
     private TaxTableService taxTableService;
 
