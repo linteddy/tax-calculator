@@ -1,6 +1,6 @@
 package io.github.linteddy.taxcalculator.controller;
 
-import io.github.linteddy.taxcalculator.domain.IncomeTax;
+import io.github.linteddy.taxcalculator.domain.IncomeTaxResult;
 import io.github.linteddy.taxcalculator.domain.Period;
 import io.github.linteddy.taxcalculator.service.IncomeTaxService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +21,9 @@ public class TaxCalculatorController {
     private final IncomeTaxService incomeTaxService;
 
     @GetMapping("/income-tax")
-    public Mono<IncomeTax> getIncomeTax(@RequestParam final int year, @RequestParam final int age,
-                                        @RequestParam final BigDecimal income, @RequestParam final Period period,
-                                        @RequestParam final int medicalAidMembers) {
+    public Mono<IncomeTaxResult> getIncomeTax(@RequestParam final int year, @RequestParam final int age,
+                                              @RequestParam final BigDecimal income, @RequestParam final Period period,
+                                              @RequestParam final int medicalAidMembers) {
         return incomeTaxService.calculateIncomeTax(year,age,income,period,medicalAidMembers);
     }
 

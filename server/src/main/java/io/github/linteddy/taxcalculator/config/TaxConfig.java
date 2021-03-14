@@ -8,7 +8,6 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
@@ -17,6 +16,5 @@ import java.util.Map;
 @Validated
 public class TaxConfig {
     @NotEmpty
-    private Map<@NotNull Integer, TaxTable> taxableIncomeTable = new HashMap<>();
-
+    private Map<@NotNull Integer, @NotNull TaxTable> taxableIncomeTable;
 }
