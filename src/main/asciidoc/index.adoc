@@ -70,6 +70,8 @@ A `GET` request is get the income tax for the specified request parameters.
 ==== Request structure
 
 include::{snippets}/get-income-tax/http-request.adoc[]
+Request parameters description
+include::{snippets}/get-income-tax/request-parameters.adoc[]
 
 ==== Example response
 
@@ -77,6 +79,3 @@ include::{snippets}/get-income-tax/http-response.adoc[]
 Request body fields description
 include::{snippets}/get-income-tax/response-fields.adoc[]
 
-==== CURL request
-
-include::{snippets}/get-income-tax/curl-request.adoc[]

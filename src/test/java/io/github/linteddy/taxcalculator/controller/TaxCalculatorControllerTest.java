@@ -25,6 +25,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.document;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
 
@@ -40,6 +41,7 @@ class TaxCalculatorControllerTest {
     void setUp(ApplicationContext applicationContext, RestDocumentationContextProvider restDocumentation) {
         this.webTestClient = WebTestClient.bindToApplicationContext(applicationContext)
                 .configureClient()
+                .baseUrl("https://linteddy-tax-calculator.herokuapp.com")
                 .filter(documentationConfiguration(restDocumentation))
                 .build();
     }
@@ -58,8 +60,8 @@ class TaxCalculatorControllerTest {
                 .uri(
                         uriBuilder -> uriBuilder
                                 .path("/api/tax/income-tax")
-                                .queryParam("year",2021)
-                                .queryParam("age",70)
+                                .queryParam("year", 2021)
+                                .queryParam("age", 70)
                                 .queryParam("income", BigDecimal.valueOf(30000))
                                 .queryParam("period", Period.MONTHLY)
                                 .queryParam("medicalAidMembers", 0)
@@ -69,9 +71,19 @@ class TaxCalculatorControllerTest {
                 .isOk().expectHeader().contentType(MediaType.APPLICATION_JSON).expectBody()
                 .consumeWith(
                         document("get-income-tax", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
+                                requestParameters(
+                                        parameterWithName("year").description("Tax year"),
+                                        parameterWithName("age").description("Tax age of the tax payer"),
+                                        parameterWithName("income").description("Total taxable monthly or annual income." +
+                                                " See the period request parameter"),
+                                        parameterWithName("period").description("How often the tax payer gets the total taxable income." +
+                                                "Values : MONTHLY, ANNUALLY"),
+                                        parameterWithName("medicalAidMembers").description("The number of medical aid members plus main.")
+
+                                ),
                                 responseFields(
                                         fieldWithPath("payAsYouEarnBeforeTaxCredit")
-                                                .description("Calculated pay as you earn before Tax Credits."+
+                                                .description("Calculated pay as you earn before Tax Credits." +
                                                         " Annually or monthly depending on the request's period value"),
                                         fieldWithPath("payAsYouEarnAfterTaxCredit")
                                                 .description("Calculated pay as you earn after Tax Credits." +
