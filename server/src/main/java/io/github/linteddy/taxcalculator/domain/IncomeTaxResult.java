@@ -7,14 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Builder
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class IncomeTax {
-    private BigDecimal monthlyPAYEBeforeTaxCredit;
-    private BigDecimal annuallyPAYEBeforeTaxCredit;
+@NoArgsConstructor
+@Builder
+public class IncomeTaxResult {
+    private BigDecimal payAsYouEarnBeforeTaxCredit;
     private BigDecimal taxCredits;
-    private BigDecimal paye;
+    private BigDecimal payAsYouEarnAfterTaxCredit;
     private BigDecimal netCash;
 }

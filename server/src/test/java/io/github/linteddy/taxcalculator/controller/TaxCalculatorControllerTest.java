@@ -1,8 +1,8 @@
 package io.github.linteddy.taxcalculator.controller;
 
-import io.github.linteddy.taxcalculator.domain.IncomeTax;
+import io.github.linteddy.taxcalculator.domain.IncomeTaxResult;
 import io.github.linteddy.taxcalculator.domain.Period;
-import io.github.linteddy.taxcalculator.service.IncomeTaxService;
+import io.github.linteddy.taxcalculator.service.TaxCalculatorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ import static org.springframework.restdocs.webtestclient.WebTestClientRestDocume
 class TaxCalculatorControllerTest {
 
     @MockBean
-    private IncomeTaxService incomeTaxService;
+    private TaxCalculatorService taxCalculatorService;
     private WebTestClient webTestClient;
 
     @BeforeEach
@@ -47,14 +47,13 @@ class TaxCalculatorControllerTest {
     @DisplayName("calculate income tax")
     @Test
     void calculateIncomeTax() {
-        var incomeTax = IncomeTax.builder()
-                .monthlyPAYEBeforeTaxCredit(BigDecimal.valueOf(4657.58))
-                .annuallyPAYEBeforeTaxCredit(BigDecimal.valueOf(4657.58).multiply(BigDecimal.valueOf(12)))
-                .paye(BigDecimal.valueOf(4657.58))
+        var incomeTax = IncomeTaxResult.builder()
+                .payAsYouEarnBeforeTaxCredit(BigDecimal.valueOf(4657.58))
                 .netCash(BigDecimal.valueOf(30000).subtract(BigDecimal.valueOf(4657.58)))
                 .taxCredits(BigDecimal.ZERO)
+                .payAsYouEarnAfterTaxCredit(BigDecimal.valueOf(4657.58))
                 .build();
-        when(incomeTaxService.calculateIncomeTax(anyInt(), anyInt(), any(), any(), anyInt())).thenReturn(Mono.just(incomeTax));
+        when(taxCalculatorService.calculateIncomeTax(anyInt(), anyInt(), any(), any(), anyInt())).thenReturn(Mono.just(incomeTax));
         webTestClient.get()
                 .uri(
                         uriBuilder -> uriBuilder
@@ -71,11 +70,14 @@ class TaxCalculatorControllerTest {
                 .consumeWith(
                         document("get-income-tax", preprocessRequest(prettyPrint()), preprocessResponse(prettyPrint()),
                                 responseFields(
-                                        fieldWithPath("monthlyPAYEBeforeTaxCredit").description("Calculated monthly PAYE before Tax Credits"),
-                                        fieldWithPath("annuallyPAYEBeforeTaxCredit").description("Calculated annually PAYE before Tax Credits"),
+                                        fieldWithPath("payAsYouEarnBeforeTaxCredit")
+                                                .description("Calculated pay as you earn before Tax Credits."+
+                                                        " Annually or monthly depending on the request's period value"),
+                                        fieldWithPath("payAsYouEarnAfterTaxCredit")
+                                                .description("Calculated pay as you earn after Tax Credits." +
+                                                        " Annually or monthly depending on the request's period value"),
                                         fieldWithPath("taxCredits").description("Medical Aid Tax Credits"),
-                                        fieldWithPath("paye").description("Pay as you earn due after Tax credits"),
-                                        fieldWithPath("netCash").description("Net cash pay after PAYE due")
+                                        fieldWithPath("netCash").description("The take home cash after pay as you earn due")
                                 )
                         )
                 );
