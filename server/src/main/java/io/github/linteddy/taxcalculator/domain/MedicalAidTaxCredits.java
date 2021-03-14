@@ -14,16 +14,18 @@ class MedicalAidTaxCredits {
     @Min(1)
     private BigDecimal additionalDependant;
 
-    public BigDecimal calculateTaxCredits(int medicalAidMembers) {
+    public BigDecimal calculateAnnualTaxCredits(int medicalAidMembers) {
+        BigDecimal taxCredits;
         if (medicalAidMembers == 1) {
-            return main;
+            taxCredits = main;
         } else if (medicalAidMembers == 2) {
-            return main.add(firstDependant);
+           taxCredits = main.add(firstDependant);
         } else if (medicalAidMembers > 2) {
             final BigDecimal additionalDependantsAmount = additionalDependant.multiply(BigDecimal.valueOf(medicalAidMembers - 2));
-            return main.add(firstDependant).add(additionalDependantsAmount);
+           taxCredits =  main.add(firstDependant).add(additionalDependantsAmount);
         } else {
             return BigDecimal.ZERO;
         }
+        return taxCredits.multiply(BigDecimal.valueOf(12));
     }
 }

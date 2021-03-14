@@ -46,7 +46,7 @@ public class TaxTable {
     }
 
     public BigDecimal calculateAnnualTaxCredits(int medicalAidMembers) {
-        return medicalAidTaxCredits.calculateTaxCredits(medicalAidMembers);
+        return medicalAidTaxCredits.calculateAnnualTaxCredits(medicalAidMembers);
     }
 
     private boolean isIncomeLessThanTaxThresholds(final BigDecimal totalTaxableIncome, final int age) {
