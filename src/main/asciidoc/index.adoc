@@ -76,6 +76,6 @@ include::{snippets}/get-income-tax/request-parameters.adoc[]
 ==== Example response
 
 include::{snippets}/get-income-tax/http-response.adoc[]
-Request body fields description
+Response body fields description
 include::{snippets}/get-income-tax/response-fields.adoc[]
 
